@@ -41,6 +41,8 @@ FORMS += \
 QT += \
     network
 
+QT += core widgets
+
 #LIBS += -lssl -lcrypto
 
 #QT += \
