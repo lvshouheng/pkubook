@@ -155,6 +155,8 @@ void MainWindow::onSendButtonClicked()
 
 void MainWindow::onGameButtonClicked()
 {
+    GameDialog *my_game = new GameDialog(this);
+    my_game->show();
     // 在这里处理点击游戏按钮的逻辑
 }
 
