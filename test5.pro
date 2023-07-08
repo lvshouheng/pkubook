@@ -26,22 +26,27 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-    first_view.cpp
+    first_view.cpp \
+    gamewindow.cpp \
+    chatwindow.cpp \
+    get_ans.cpp \
+    chatbutton.cpp
 
 HEADERS += \
     chatbutton.h \
     chatwindow.h \
     first_view.h \
-    get_ans.h
+    get_ans.h \
+    gamewindow.h
 
 FORMS += \
-    widget.ui \
-    first_view.ui
+        widget.ui
 
 QT += \
     network
 
 QT += core widgets
+
 
 #LIBS += -lssl -lcrypto
 

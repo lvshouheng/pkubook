@@ -5,12 +5,16 @@
 #include "config.h"
 #include "chatbutton.h"
 #include "chatwindow.h"
-#include <first_view.cpp>
+#include <first_view.h>
 
 
 int main(int argc, char** argv) {
     QApplication app(argc, argv);
+
     MainWindow first_v;
+
+    first_v.setWindowTitle("pkubook");
+
     first_v.show();
 
     return app.exec();

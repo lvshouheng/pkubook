@@ -1,13 +1,11 @@
 // first_view.cpp
 
 #include "first_view.h"
-#include"QMovie"
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    ,firstview(new Ui::MainWindow)
 {
-    firstview->setupUi(this);
 
     QWidget* centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
@@ -19,18 +17,22 @@ MainWindow::MainWindow(QWidget *parent)
     dictionaryImageLabel = new QLabel(this);
     dictionaryImageLabel->setScaledContents(true);
 
-    QPixmap dictionaryImage(":/my_pic/tmppic.png");
+    //QPixmap dictionaryImage(":/my_pic/tmppic.png");
     //QPixmap scaledImage = dictionaryImage.scaled(dictionaryImageLabel->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
     //dictionaryImageLabel->setPixmap(scaledImage);
     //dictionaryImageLabel->setAlignment(Qt::AlignCenter);
-    dictionaryImageLabel->setPixmap(dictionaryImage);
-    dictionaryImageLabel->setFixedSize(230, 280);
+    //dictionaryImageLabel->setPixmap(dictionaryImage);
+    //dictionaryImageLabel->setFixedSize(230, 280);
     //虚拟人物
 
-    //QMovie *movie=new QMovie(":/my_pic2/catgif2.gif");
-    //dictionaryImageLabel->setMovie(movie);
-    //dictionaryImageLabel->setFixedSize(230,280);
-    //movie->start();
+
+    QMovie *movie=new QMovie(":/my_pic/catgif.gif");
+    //movie->setPaused(false);
+    //dictionaryImageLabel->setAttribute(Qt::WA_StyledBackground);
+    //dictionaryImageLabel->setWindowFlags(Qt::FramelessWindowHint);
+    dictionaryImageLabel->setMovie(movie);
+    dictionaryImageLabel->setFixedSize(200,200);
+    movie->start();
 
 
     exampleLabel = new QLabel("EXAMPLE", this);
@@ -53,8 +55,8 @@ MainWindow::MainWindow(QWidget *parent)
     abilityButton2 = new QPushButton("包揽各方美食，让你享受舌尖上的愉悦", this);
     abilityButton3 = new QPushButton("搜寻附近名胜，假期不再无所适从！", this);
 
-    limitButton1 = new QPushButton("数据库内容较局限", this);
-    limitButton2 = new QPushButton("尚未能进行联网搜索分析", this);
+    limitButton1 = new QPushButton("功能范围较有限", this);
+    limitButton2 = new QPushButton("不能进行相关图片展示", this);
     limitButton3 = new QPushButton("智能化程度较低", this);
 
     speakLable=new QLabel("欢迎来到燕园大学习！以上是关于燕园大学习的相关介绍。\n"
@@ -109,7 +111,7 @@ MainWindow::MainWindow(QWidget *parent)
     mainLayout->addLayout(limitLayout,1,11);
 
     mainLayout->addWidget(dictionaryImageLabel,5,0,13,1);
-    mainLayout->addWidget(speakLable,9,2,2,7);
+    mainLayout->addWidget(speakLable,9,1,2,7);
     mainLayout->addLayout(inputLayout,17,4,1,13);
     mainLayout->setContentsMargins(10, 10, 10, 10);
     mainLayout->setSpacing(10);
@@ -124,39 +126,26 @@ void MainWindow::paintEvent(QPaintEvent *event)
 {
     QPainter myPainter(this);
     myPainter.setOpacity(0.5);          //背景图片透明度
-    myPainter.drawPixmap(0,0,this->width(),this->height(),QPixmap(":/my_pic/OIP"));;
+    myPainter.drawPixmap(0,0,this->width(),this->height(),QPixmap(":/my_pic/OIP.jpg"));;
 
 }
 
 void MainWindow::onSendButtonClicked()
 {
     ChatWindow *my_chat = new ChatWindow(this);
+    my_chat->setWindowTitle("chat");
     my_chat->setModal(true);//设置为模态对话框
     my_chat->show();
+    //在这里处理点击聊天按钮的逻辑
 
-//    // 隐藏各标签
-//    speakimage->hide();
-//    exampleLabel->hide();
-//    abilityLabel->hide();
-//    limitLabel->hide();
-//    exampleButton1->hide();
-//    exampleButton2->hide();
-//    exampleButton3->hide();
-//    abilityButton1->hide();
-//    abilityButton2->hide();
-//    abilityButton3->hide();
-//    limitButton1->hide();
-//    limitButton2->hide();
-//    limitButton3->hide();
-    // 隐藏字典图片标签
-    //dictionaryImageLabel->setVisible(false);
 }
 
 
 void MainWindow::onGameButtonClicked()
 {
     GameDialog *my_game = new GameDialog(this);
+    my_game->setWindowTitle("game");
+    my_game->setModal(true);
     my_game->show();
     // 在这里处理点击游戏按钮的逻辑
 }
-

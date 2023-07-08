@@ -4,7 +4,7 @@
 
 GameDialog::GameDialog(QWidget* parent) : QDialog(parent) {
     QVBoxLayout* layout = new QVBoxLayout(this);
-    setFixedSize(900, 600);
+    setFixedSize(1070 , 700);
 
     pic_name<<":/my_pic/ximen.jpg"<<":/my_pic/huabiao1.jpg"<<":/my_pic/weiming.jpg"<<":/my_pic/tushu.jpg"<<":/my_pic/tushu.jpg";
 
@@ -16,11 +16,6 @@ GameDialog::GameDialog(QWidget* parent) : QDialog(parent) {
     ans_font.setPointSize(16);  // 设置字体大小
     ans_font.setBold(true);     // 设置字体为粗体
 
-//    // 设置样式表，将窗口背景设置为图片
-//    QString imagePath = "path/to/your/image.jpg";  // 图片的路径
-//    QString styleSheet = QString("QWidget { background-image: url('%1'); }").arg(pic_name[col_num]);
-//    this->setStyleSheet(styleSheet);
-
     pal = palette();
     QPixmap background(pic_name[col_num]);
     pal.setBrush(QPalette::Background, background);//设置背景
@@ -30,7 +25,7 @@ GameDialog::GameDialog(QWidget* parent) : QDialog(parent) {
             << "你成功进入了学校，看到面前有两座高大的华表。请问，\n华表的位置在哪？"
             << "你路过了美丽的未名湖畔，看到前方一座古朴的石塔。\n“哦，这就是博雅塔”。请问博雅塔曾是一座什么塔？"
             << "恭喜你来到了图书馆。\n这时，猫猫又拦住了你：图书馆成立于哪一年？"
-            << "成功进入图书馆！点击任意按钮退出";
+            << "成功进入图书馆！你接下来准备干什么呢？";
     option_string<< "A 校友门"
                  << "B 玄武门"
                  << "C 西大门"
@@ -47,15 +42,15 @@ GameDialog::GameDialog(QWidget* parent) : QDialog(parent) {
                  << "B 1974"
                  << "C 1985"
                  << "D 1898"
-                 << " "
-                 << " "
-                 << " "
-                 << " ";
+                 << "A 进入图书馆开始学习"
+                 << "B 走出图书馆"
+                 << "C 进入图书馆摸鱼"
+                 << "D 钝角";
 
     // 创建问题标签
     questionLabel = new QLabel(pku_views[col_num], this);
     questionLabel->setFont(ques_font);
-    questionLabel->setFixedHeight(200); // 设置高度为 100 像素
+    questionLabel->setFixedHeight(250); // 设置高度为 250 像素
     questionLabel->setStyleSheet("QLabel {"
                             "   border: 1px solid black;" // 设置边框样式
                             "   background-color: white;" // 设置背景色
@@ -142,10 +137,10 @@ GameDialog::GameDialog(QWidget* parent) : QDialog(parent) {
     layout->addWidget(optionButton4);
 
     // 连接按钮点击信号到槽函数
-    connect(optionButton1, &MyButton::clicked, this, &GameDialog::optionButtonClicked1);
-    connect(optionButton2, &MyButton::clicked, this, &GameDialog::optionButtonClicked2);
-    connect(optionButton3, &MyButton::clicked, this, &GameDialog::optionButtonClicked3);
-    connect(optionButton4, &MyButton::clicked, this, &GameDialog::optionButtonClicked4);
+    connect(optionButton1, &QPushButton::clicked, this, &GameDialog::optionButtonClicked1);
+    connect(optionButton2, &QPushButton::clicked, this, &GameDialog::optionButtonClicked2);
+    connect(optionButton3, &QPushButton::clicked, this, &GameDialog::optionButtonClicked3);
+    connect(optionButton4, &QPushButton::clicked, this, &GameDialog::optionButtonClicked4);
 }
 
 //进行选择及题目跳转
@@ -153,9 +148,6 @@ void GameDialog::optionButtonClicked1() {
     QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
     if (clickedButton) {
         QString optionText = clickedButton->text();
-        if(col_num>=4){
-            this->close();
-        }
         if(col_num==0){
             col_num++;
             // 创建一个消息对话框
@@ -184,7 +176,7 @@ void GameDialog::optionButtonClicked1() {
         else{
             QMessageBox msgBox;
             msgBox.setWindowTitle("提示");
-            msgBox.setText("回答错误啦，再好好想想，或者去问问小精灵");
+            msgBox.setText("回答错误啦，再好好想想，或者去问问小北");
             msgBox.setStandardButtons(QMessageBox::Ok);
             msgBox.setDefaultButton(QMessageBox::Ok);
             // 弹出对话框并等待用户确认
@@ -198,9 +190,7 @@ void GameDialog::optionButtonClicked2() {
     QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
     if (clickedButton) {
         QString optionText = clickedButton->text();
-        if(col_num>=4){
-            this->close();
-        }
+
         if(col_num==1){
             col_num++;
             // 创建一个消息对话框
@@ -229,7 +219,7 @@ void GameDialog::optionButtonClicked2() {
         else{
             QMessageBox msgBox;
             msgBox.setWindowTitle("提示");
-            msgBox.setText("回答错误啦，再好好想想，或者去问问小精灵");
+            msgBox.setText("回答错误啦，再好好想想，或者去问问小北");
             msgBox.setStandardButtons(QMessageBox::Ok);
             msgBox.setDefaultButton(QMessageBox::Ok);
             // 弹出对话框并等待用户确认
@@ -243,9 +233,6 @@ void GameDialog::optionButtonClicked3() {
     QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
     if (clickedButton) {
         QString optionText = clickedButton->text();
-        if(col_num>=4){
-            this->close();
-        }
         if(col_num==2){
             col_num++;
             // 创建一个消息对话框
@@ -274,7 +261,7 @@ void GameDialog::optionButtonClicked3() {
         else{
             QMessageBox msgBox;
             msgBox.setWindowTitle("提示");
-            msgBox.setText("回答错误啦，再好好想想，或者去问问小精灵");
+            msgBox.setText("回答错误啦，再好好想想，或者去问问小北");
             msgBox.setStandardButtons(QMessageBox::Ok);
             msgBox.setDefaultButton(QMessageBox::Ok);
             // 弹出对话框并等待用户确认
@@ -289,7 +276,16 @@ void GameDialog::optionButtonClicked4() {
     if (clickedButton) {
         QString optionText = clickedButton->text();
         if(col_num>=4){
-            this->close();
+            QMessageBox msgBox;
+            msgBox.setWindowTitle("提示");
+            msgBox.setText("恭喜你完成了所有问题！");
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            int result = msgBox.exec();
+            if (result == QMessageBox::Ok) {
+                this->close();
+            }
+            return;
         }
         if(col_num==3){
             col_num++;
@@ -319,7 +315,7 @@ void GameDialog::optionButtonClicked4() {
         else{
             QMessageBox msgBox;
             msgBox.setWindowTitle("提示");
-            msgBox.setText("回答错误啦，再好好想想，或者去问问小精灵");
+            msgBox.setText("回答错误啦，再好好想想，或者去问问小北");
             msgBox.setStandardButtons(QMessageBox::Ok);
             msgBox.setDefaultButton(QMessageBox::Ok);
             // 弹出对话框并等待用户确认
